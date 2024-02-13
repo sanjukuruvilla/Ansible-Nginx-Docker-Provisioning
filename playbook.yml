@@ -1,0 +1,37 @@
+-
+  name: playbook_1
+  hosts: nginx
+  remote_user: ubuntu
+  become: true
+  tasks:
+    - name: update and upgrade server
+      shell: apt update -y && apt upgrade -y
+    - name: install docker
+
+      package:
+        name: nginx
+        state: present
+
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+        enabled: true
+    - name: make nginx folder     
+      shell: mkdir nginx
+
+    - name: install docker
+      package:
+        name: docker
+        state: present
+
+    - name: start docker
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: make docker file
+      shell: mkdir docker_files
+
+

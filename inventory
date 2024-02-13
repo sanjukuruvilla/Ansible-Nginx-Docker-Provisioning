@@ -1,0 +1,11 @@
+[nginx]
+3.90.111.235
+3.95.55.196
+
+[docker]
+54.160.48.173
+3.84.126.172
+54.163.57.44
+
+[nginx:vars]
+privatekey=/home/ubuntu/.ssh/id_rsa
