@@ -1,37 +1,50 @@
--
-  name: playbook_1
-  hosts: nginx
-  remote_user: ubuntu
-  become: true
-  tasks:
-    - name: update and upgrade server
-      shell: apt update -y && apt upgrade -y
-    - name: install docker
+---
+name: playbook_1
+hosts: nginx
+remote_user: ubuntu
+become: true
+tasks:
+  - name: update and upgrade server
+    shell: apt update -y && apt upgrade -y
+    tags:
+      - update_upgrade
+    
+  - name: install nginx
+    package:
+      name: nginx
+      state: present
+    tags:
+      - install_nginx
 
-      package:
-        name: nginx
-        state: present
+  - name: start nginx
+    service:
+      name: nginx
+      state: started
+      enabled: true
+    tags:
+      - start_nginx
 
-    - name: start nginx
-      service:
-        name: nginx
-        state: started
-        enabled: true
-    - name: make nginx folder     
-      shell: mkdir nginx
+  - name: make nginx folder     
+    shell: mkdir nginx
+    tags:
+      - make_nginx_folder
 
-    - name: install docker
-      package:
-        name: docker
-        state: present
+  - name: install docker
+    package:
+      name: docker
+      state: present
+    tags:
+      - install_docker
 
-    - name: start docker
-      service:
-        name: docker
-        state: started
-        enabled: true
+  - name: start docker
+    service:
+      name: docker
+      state: started
+      enabled: true
+    tags:
+      - start_docker
 
-    - name: make docker file
-      shell: mkdir docker_files
-
-
+  - name: make docker file
+    shell: mkdir docker_files
+    tags:
+      - make_docker_files
